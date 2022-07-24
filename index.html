@@ -171,7 +171,8 @@
         <option value="Scientific">Scientific</option>
         <option value="Tetration">Tetration</option>
       </select><hr>
-      <span id="output"></span>
+      <span id="output"></span><br>
+      <button onClick="navigator.clipboard.writeText(document.getElementById('output').innerHTML)">Copy</button>
     </div>
   </body>
 </html>
