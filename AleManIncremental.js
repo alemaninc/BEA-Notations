@@ -172,7 +172,7 @@ function gformat() {   // value, precision (significant figures for small number
   if (arguments[2]==undefined) arguments[2]=g.notation
   if (x.eq(0)) return "0"
   if (isNaN(x.layer)) return "Infinite"
-  if (x.lt(1)) return "1 / "+gformat(x.pow(-1),arguments[1],arguments[2])
+  if (x.lt(1e-6)) return "1 / "+gformat(x.pow(-1),arguments[1],arguments[2])
   let y=Math.max(0,arguments[1]-Math.floor(x.max(1e-10).min(1e10).log(10).toNumber()))
   if (x.lt(1000000)) return (Math.round(x.toNumber()*10**y)/10**y).toLocaleString("en-US")
   if (arguments[2]=="Alemaninc Ordinal") {
