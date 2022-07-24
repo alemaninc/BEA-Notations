@@ -157,9 +157,7 @@
       <label for="precision">Precision:</label>
       <input id="precision" value="2"/><hr>
       <label for="notation">Notation:</label>
-      <input list="available-notations" id="notation" value="Mixed scientific"/><hr>
-      <span id="output"></span>
-      <datalist id="available-notations">
+      <select id="notation" value="Mixed scientific">
         <option value="Alemaninc Ordinal">
         <option value="Default BE">
         <option value="Engineering">
@@ -169,10 +167,11 @@
         <option value="Mixed scientific">
         <option value="Scientific">
         <option value="Tetration">
-      </datalist>
+      </select><hr>
+      <span id="output"></span>
     </div>
-    <script src="break_eternity_alemaninc.js">
-    <script src="AleManIncremental.js">
-    <script src="main.js">
+    <script type="text/javascript" src="break_eternity_alemaninc.js"/>
+    <script type="text/javascript" src="AleManIncremental.js">
+    <script type="text/javascript" src="main.js">
   </body>
 </html>
