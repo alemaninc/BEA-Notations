@@ -9,21 +9,168 @@
       text-align:center
     }
     body{
-      background: #001133;
+      background: repeating-conic-gradient(at 50% 100%,#001133,#002244 5%,#001133 10%);
       font-size:15px;
+      font-color:#fff;
+    }
+    div{
+      background: radial-gradient(circle,rgba(0,255,255,0.3),rgba(0,128,128,0.3));
+      display: inline-block;
+      margin: 0 auto
+    }
+    h1{
+      font-size:40px;
+      font-weight:700
+    }
+    h5{
+      font-size:23px;
+      font-weight:500px
+    }
+    h6{
+      font-size:19px;
+      font-weight:500
     }
     </style>
   </head>
   <body>
-    <div>
-      TBD
+    <div style="width:300px">
+      <h1>Usage</h1>
+      <h5>Number</h5>
+      <p>This is where you input the number which you want to format.</p>
+      <p>You can input raw numbers (eg. "10"), scientific notation (eg. "1e4") (this also accepts logarithm notation and multiple e's, eg. "ee3e6"), an exponential expression (eg. "2^1024"), a tetrational expression (eg. "10^^100") or a pentational expression (eg. "3^^^3").</p>
+      <p>This converter also has some named numbers, which you can also input (eg. "beta") and which are found to the right. However, these do not exist in break_eternity.js.</p>
+      <h5>Precision</h5>
+      <p>This is where you input the number of significant digits for small numbers. The game will attempt display (x+1) significant digits, but it will always display all digits before the decimal point, and never more than 3 digits after the decimal point.</p>
+      <p>
+        Examples:<br>
+        BEformat(3.14159,2) returns "3.14"<br>
+        BEformat(3.14159,0) returns "3"<br>
+        BEformat(27.778,2) returns "27.8"<br>
+        BEformat(1/750,3) returns "0.001"<br>
+        BEformat("2^-25",2) returns "1 / 33.55 M" (the game will display numbers below 10^-6 as fractions. This is assuming you use mixed scientific notation, but may differ for you.)
+      </p>
+      <h5>Notation</h5>
+      <p>This is the "method" that the game uses to format the number as being readable.</p>
+      <h6>Alemaninc Ordinal</h6>
+      <p>This notation assigns a Greek letter and an "ordinal" to every number.</p>
+      <p>The first Alemaninc Ordinal is α<sub>10</sub> and is assigned to 1 million.</p>
+      <p>The ordinal slowly increases (much slower than the number). When it reaches 10 billion, it resets back to 10 and the game moves on to the next Greek letter.</p>
+      <p>The Alemaninc Ordinal of the highest number allowable by break_eternity.js is ω<sub>9,999,999,999</sub>, which is also the highest permissible Alemaninc Ordinal.</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "α<sub>12.74</sub>"<br>
+        "2^1024" becomes "α<sub>2,299,638</sub>"<br>
+        "3^^4" becomes "β<sub>21,733</sub>"<br>
+        "10^^10" becomes "ε<sub>27.22</sub>"<br>
+        "3^^^3" becomes "ξ<sub>10.34</sub>" 
+      </p>
+      <h6>Default BE</h6>
+      <p>This is the default notation that break_eternity.js uses for encoding numbers. It is very similar to Scientific notation.</p>
+      <p>At high values this notation may become difficult to read, but is noticeably more consistent than many of the other notations here.</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "1.000e+7"<br>
+        "2^1024" becomes "1.798e308"<br>
+        "3^^4" becomes "1.298e3638000000000" (notice the inaccuracy)<br>
+        "10^^10" becomes "(e^8)10000000000"<br>
+        "3^^^3" becomes "(e^7625597484984)25270000000000"
+      </p>
+      <h6>Engineering</h6>
+      <p>This is also very similar to Scientific notation, except the exponent is always evenly divisible by 3 (meaning it is aligned with the "illions")</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "10.00e6"<br>
+        "2^1024" becomes "179.77e306"<br>
+        "3^^4" becomes "e3.64e12"<br>
+        "10^^10" becomes "E1#10" (most notations switch to Hyper-E at high values to prevent way too many e's)<br>
+        "3^^^3" becomes "E#7.63e12" 
+      </p>
+      <h6>Hyper-E</h6>
+      <p>This uses the <a href="https://googology.fandom.com/wiki/Hyper-E_notation">Hyper-E</a> "high-value notation" from the very start. Similar to Logarithm notation but more compact.</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "E7#1"<br>
+        "2^1024" becomes "E2.488#2" (the mantissa is always in the range of 1 to 10 here)<br>
+        "3^^4" becomes "E1.099#3"<br>
+        "10^^10" becomes "E1#10"<br>
+        "3^^^3" becomes "E#7.62e12" 
+      </p>
+      <h6>Infinity</h6>
+      <p>This notation expresses the number in relation to the highest number permissible by break_eternity.js (the "infinity"), where 0∞ is 10, 1∞ is 10^^(2^1024) and all values in between are decimals.</p>      
+      <p>
+        Examples:<br>
+        "1e7" becomes "0.00086299∞"<br>
+        "2^1024" becomes "0.00123109∞"<br>
+        "3^^4" becomes "0.00156694∞"<br>
+        "10^^10" becomes "0.00324407∞"<br>
+        "3^^^3" becomes "0.04179100∞" (to reach 0.5∞ without reaching 1∞ in the process is quite an achievement.)
+      </p>
+      <h6>Logarithm</h6>
+      <p>This is similar to Scientific notation, but with no mantissa.</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "e7.000"<br>
+        "2^1024" becomes "e308.255"<br>
+        "3^^4" becomes "ee12.561"<br>
+        "10^^10" becomes "E1#10"<br>
+        "3^^^3" becomes "E#e12.882" (past 10^^1e6 in notations that switch to Hyper-E the hyper-exponent is formatted with the notation)
+      </p>
+      <h6>Mixed scientific</h6>
+      <p>This is similar to Scientific notation, but numbers below 1e33 are instead formatted using contractions of "illions".</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "10.00 M"<br>
+        "2^1024" becomes "1.79e308"<br>
+        "3^^4" becomes "e3.64 T"<br>
+        "10^^10" becomes "E1#10"<br>
+        "3^^^3" becomes "E#7.63 T"
+      </p>
+      <h6>Scientific</h6>
+      <p>This is, as the name implies, scientific notation.</p>
+      <p>However, for the sake of compactness (and formatting issues), instead of "m × 10<sup>n</sup>" "men" is displayed. For example, 31415926 becomes "3.14e7" rather than "3.14 × 10<sup>7</sup>".</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "1e7"<br>
+        "2^1024" becomes "1.79e308"<br>
+        "3^^4" becomes "e3.63e12"<br>
+        "10^^10" becomes "E1#10"<br>
+        "3^^^3" becomes "E#7.62e12"
+      </p>
+      <h6>Tetration</h6>
+      <p>In this notation numbers are displayed in the form "e ⇈ n", where e is <a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler's number</a> (approximately 2.71828).</p>
+      <p>The reason for this choice of base is that it is the only base that maintains smoothness when the height crosses an integer.</p>
+      <p>
+        Examples:<br>
+        "1e7" becomes "e ⇈ 3.022182"<br>
+        "2^1024" becomes "e ⇈ 3.632200"<br>
+        "3^^4" becomes "e ⇈ 4.200267"<br>
+        "10^^10" becomes "e ⇈ 11.143602"<br>
+        "3^^^3" becomes "e ⇈ 7.63 T" (mixed scientific notation is used. At this point the height is equal to its value if the base was 10)
+      </p>
     </div>
-    <script src="break_eternity_alemaninc.js"/>
-    <script src="AleManIncremental.js"/>
-    <script>
-    window.setInterval(function(){
-      document.getElementById("output").innerHTML = gformat(document.getElementById("number").value,document.getElementById("precision").value,document.getElementById("notation").value)
-    },50)
-    </script>
+    <div style="height:200px;width:200px">
+      <h1>Converter</h1>
+      <label for="number">Number:</label>
+      <input id="number" value="10"/><hr>
+      <label for="precision">Precision:</label>
+      <input id="precision" value="2"/><hr>
+      <label for="notation">Notation:</label>
+      <input list="available-notations" id="notation" value="Mixed scientific"/><hr>
+      <span id="output"></span>
+      <datalist id="available-notations">
+        <option value="Alemaninc Ordinal">
+        <option value="Default BE">
+        <option value="Engineering">
+        <option value="Hyper-E">
+        <option value="Infinity">
+        <option value="Logarithm">
+        <option value="Mixed scientific">
+        <option value="Scientific">
+        <option value="Tetration">
+      </datalist>
+    </div>
+    <script src="break_eternity_alemaninc.js">
+    <script src="AleManIncremental.js">
+    <script src="main.js">
   </body>
 </html>
