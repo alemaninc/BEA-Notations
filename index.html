@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BEA Notations</title>
+    <meta charset="utf-8">
+    <style>
+    *{
+      font-family:"Arial";
+      text-align:center
+    }
+    body{
+      background: #001133;
+      font-size:15px;
+    }
+    </style>
+  </head>
+  <body>
+    <div>
+      TBD
+    </div>
+    <script src="break_eternity_alemaninc.js"/>
+    <script src="AleManIncremental.js"/>
+    <script>
+    window.setInterval(function(){
+      document.getElementById("output").innerHTML = gformat(document.getElementById("number").value,document.getElementById("precision").value,document.getElementById("notation").value)
+    },50)
+    </script>
+  </body>
+</html>
