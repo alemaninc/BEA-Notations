@@ -5,7 +5,7 @@ function parse(x) {
   if (x=="epsilon") return "(e^7)663929548022.3608"
   if (x=="eta") return "(e^49)683.5085625753841"
   if (x=="gamma") return "ee555.9104755354726"
-  if (x=="infinity") return "(e^1.7976931348623157e+308)10000000000"
+  if (x=="infinity") return "10^^1.7976931348622102279849153e308"
   if (x=="iota") return "(e^1080)151116289.79539084"
   if (x=="kappa") return "(e^11223)149.29134201719157"
   if (x=="lambda") return "(e^254867)201.2768916478694"
