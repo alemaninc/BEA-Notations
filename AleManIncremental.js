@@ -9,65 +9,74 @@ const c = {     // c = "constant"
 }
 Object.defineProperty(Decimal,"linearSoftcap",{
   value: function linearSoftcap() {         // value, start, power, layer 
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[1].mul(N(1).add(arguments[2].add(1).mul(arguments[0].div(arguments[1]).sub(1))).root(arguments[2].add(1))).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[1].mul(N(1).add(arguments[2].add(1).mul(arguments[0].div(arguments[1]).sub(1))).root(arguments[2].add(1))).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"logarithmicSoftcap",{
   value: function logarithmicSoftcap() {    // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[0].div(arguments[1]).ln().mul(arguments[2]).add(1).root(arguments[2]).mul(arguments[1]).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[0].div(arguments[1]).ln().mul(arguments[2]).add(1).root(arguments[2]).mul(arguments[1]).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"superlogSoftcap",{
   value: function superlogSoftcap() {       // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[0].div(arguments[1]).pow(arguments[2]).slog(c.e).add(1).root(arguments[2]).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[0].div(arguments[1]).pow(arguments[2]).quad_slog(c.e).add(1).root(arguments[2]).mul(arguments[1]).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"convergentSoftcap",{
   value: function convergentSoftcap() {     // value, start, limit, layer
-    for (let i=0;i<3;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
+    for (let i=0;i<3;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
     if (arguments[0].sub(arguments[1]).sign == arguments[1].sub(arguments[2]).sign) return arguments[0]
-    return arguments[2].sub(arguments[2].sub(arguments[1]).div(N(1).add(arguments[0].sub(arguments[1]).div(arguments[2].sub(arguments[1]))))).layeradd10(arguments[3])
+    return arguments[2].sub(arguments[2].sub(arguments[1]).div(N(1).add(arguments[0].sub(arguments[1]).div(arguments[2].sub(arguments[1]))))).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"linearScaling",{
   value: function linearScaling() {       // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[1].div(arguments[2].add(1)).mul(arguments[2].add((arguments[0].div(arguments[1])).pow(arguments[2].add(1)))).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[1].div(arguments[2].add(1)).mul(arguments[2].add((arguments[0].div(arguments[1])).pow(arguments[2].add(1)))).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"semiexpScaling",{
   value: function semiexpScaling() {       // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[1].pow(arguments[0].log(arguments[1]).pow(arguments[2].add(1))).div(arguments[2].add(1)).add(arguments[1].mul(N(1).sub(arguments[2].add(1).pow(-1)))).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[1].pow(arguments[0].log(arguments[1]).pow(arguments[2].add(1))).div(arguments[2].add(1)).add(arguments[1].mul(N(1).sub(arguments[2].add(1).pow(-1)))).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"exponentialScaling",{
   value: function exponentialScaling() {       // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return arguments[0].div(arguments[1]).pow(arguments[2]).sub(1).div(arguments[2]).exp().mul(arguments[1]).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return arguments[0].div(arguments[1]).pow(arguments[2]).sub(1).div(arguments[2]).exp().mul(arguments[1]).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"superexpScaling",{
   value: function superexpScaling() {       // value, start, power, layer
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
     if (arguments[0].lt(arguments[1])) return arguments[0]
-    for (let i=0;i<2;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
-    return c.e.tetrate(arguments[0].div(arguments[1]).pow(arguments[2]).sub(1)).root(arguments[2]).mul(arguments[1]).layeradd10(arguments[3])
+    for (let i=0;i<2;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
+    return c.e.quad_tetr(arguments[0].div(arguments[1]).pow(arguments[2]).sub(1)).root(arguments[2]).mul(arguments[1]).layerf("{x}+"+arguments[3])
   }
 })
 Object.defineProperty(Decimal,"divergentScaling",{
   value: function superexpScaling() {       // value, start, limit, layer             (argument variables: output)
-    for (let i=0;i<3;i++) arguments[i]=arguments[i].layeradd10(-arguments[3])
+    for (i=0;i<3;i++) arguments[i]=N(arguments[i])
+    for (let i=0;i<3;i++) arguments[i]=arguments[i].layerf("{x}-"+arguments[3])
     if (arguments[0].sub(arguments[1]).sign == arguments[1].sub(arguments[2]).sign) return arguments[0]
-    arguments[4]=arguments[2].sub(arguments[1]).mul(arguments[2].sub(arguments[1]).div(arguments[2].sub(arguments[0])).sub(1)).add(arguments[1]).layeradd10(arguments[3])
+    arguments[4]=arguments[2].sub(arguments[1]).mul(arguments[2].sub(arguments[1]).div(arguments[2].sub(arguments[0])).sub(1)).add(arguments[1]).layerf("{x}+"+arguments[3])
     if (arguments[4]=N(1).div(0)) return c.maxvalue
     return arguments[4]
   }
@@ -117,13 +126,6 @@ function openSSB() {  // id      (argument variables: parent)
   for (let i = 0; i < arguments[1].length; i++) arguments[1][i].style.display = "none";  
   d.display("SSBD"+arguments[0],"inline-block")
 }
-const formattags = {
-  i: document.querySelectorAll('[data-i]'),      // innerHTML
-  d: document.querySelectorAll('[data-d]'),      // display
-  v: document.querySelectorAll('[data-v]'),      // visibility
-  c: document.querySelectorAll('[data-c]'),      // class
-  s: document.querySelectorAll('[data-s]'),      // src
-}
 const o = {      // o = "operations"
   add() { // variable, value
     eval("g."+arguments[0]+"=g."+arguments[0]+".add("+arguments[1]+")")
@@ -144,6 +146,11 @@ const o = {      // o = "operations"
     eval("g."+arguments[0]+"=g."+arguments[0]+".root("+arguments[1]+")")
   }
 }
+Object.defineProperty(Array,"random",{
+  value: function random() {    // array input
+    return arguments[0][Math.floor(Math.random()*arguments[0].length)]
+  }
+})
 function BEformat() {  // value, precision (significant figures for small numbers)
   return gformat(arguments[0],arguments[1],g.notation)
 }
@@ -168,6 +175,7 @@ const format = {     // functions used in formatting
 }
 function gformat() {   // value, precision (significant figures for small numbers), notation
   let x=N(arguments[0])
+  if (x.isNaN()) return "NaN"
   if (arguments[1]==undefined) arguments[1]=0
   if (arguments[2]==undefined) arguments[2]=g.notation
   if (x.eq(0)) return "0"
@@ -176,8 +184,8 @@ function gformat() {   // value, precision (significant figures for small number
   let y=Math.max(0,arguments[1]-Math.floor(x.max(1e-10).min(1e10).log(10).toNumber()))
   if (x.lt(1000000)) return (Math.round(x.toNumber()*10**y)/10**y).toLocaleString("en-US")
   if (arguments[2]=="Alemaninc Ordinal") {
-    let output=x.mul(1e4).slog(10).log(2).log(2).mul(2.4)
-    let number=N(10).tetrate(output.mod(1).add(1))
+    let output=x.mul(1e4).quad_slog(10).log(2).log(2).mul(2.4)
+    let number=N(10).quad_tetr(output.mod(1).add(1))
     let precision=N(10000).div(number).log(10).floor().max(0).pow10()
     return ["α","β","γ","δ","ε","ζ","η","θ","ι","κ","λ","μ","ν","ξ","ο","π","ρ","σ","τ","υ","φ","χ","ψ","ω"][output.floor().toNumber()]+"<sub>"+number.mul(precision).floor().div(precision).toNumber().toLocaleString("en-US")+"</sub>"
   } else if (arguments[2]=="Default BE") {
@@ -252,14 +260,9 @@ function load(type) {
   if ((typeof savegame == "object") && (savegame !== null)) {
     let vars=Object.keys(g)
     for (let i=0; i<vars.length; i++) if (savegame[vars[i]] !== undefined) g[vars[i]] = savegame[vars[i]]
-    let BE = ["minerals.diamond.count","minerals.halite.count","progress"]                  // I hate JSON
-    for (let i=0; i<BE.length; i++) eval("g."+BE[i]+" = N(g."+BE[i]+")")
-    var timeSpentOffline = Number(new Date())-g.timeLeft
-    if ((timeSpentOffline>1000)&&(g.offlineSpeedupOn!=="Off")) {
-      if (g.offlineSpeedupOn=="Weakened") timeSpentOffline = Decimal.linearSoftcap(N(timeSpentOffline),N(3.6e6),N(1),0).toNumber() // Starts at 1 hour
-      offlineTime=g.offlineSpeedupLength
-      baseOfflineSpeedup=1+(timeSpentOffline/g.offlineSpeedupLength/1000)
-    }
+    let BE = ["progress"]                  // I hate JSON
+    for (let i=0; i<Object.keys(g.minerals).length; i++) BE.push("minerals."+Object.keys(g.minerals)[i]+".count")
+    for (let i=0; i<BE.length; i++) if (eval("g."+BE[i]) !== undefined) eval("g."+BE[i]+" = N(g."+BE[i]+")")
   }
   savecounter++
 }

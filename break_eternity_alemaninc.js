@@ -785,6 +785,24 @@
     Decimal.efficiencyOfPurchase_core = function (cost, currentRpS, deltaRpS) {
       return cost.div(currentRpS).add(cost.div(deltaRpS));
     };
+
+    // ALEMANINC FUNCTIONS START HERE
+    Decimal.sum = function () {
+      return Object.values(arguments).reduce((x,y) => Decimal.add(x,y))
+    }
+
+    Decimal.product = function () {
+      return Object.values(arguments).reduce((x,y) => Decimal.mul(x,y))
+    }
+
+    Decimal.powerTower = function () {
+      let exponents = Object.values(arguments)
+      while (exponents.length>1) {
+        exponents[exponents.length-2] = Decimal.pow(exponents[exponents.length-2],exponents[exponents.length-1])
+        exponents.pop()
+      }
+      return exponents[0]
+    }
     
     Decimal.prototype.normalize = function () {
       /*
@@ -2733,13 +2751,13 @@ for (var i = 0; i < 10; ++i)
     };
 
     Decimal.prototype.layerf = function (code) {      // This is a function which changes the layer of a number according to code which is input. For example, layerf("{x}**2") will square the layer. Therefore, N(1e10).layerf("{x}*1.5") returns 10^^3, because slog(1e10)=2 and 2*1.5=3.
-      let x = this.slog(10).toNumber()
-      return N(10).tetrate(eval(code.replace(/{x}/g,x)))
+      let x = this.quad_slog(10).toNumber()
+      return N(10).quad_tetr(eval(code.replace(/{x}/g,x)))
     };
 
     Decimal.prototype.dilate = function (exponent,layer) {
       if (layer == undefined) layer = 1
-      return this.layeradd10(-layer).pow(exponent).layeradd10(layer)
+      return this.layerf("{x}-"+layer).pow(exponent).layerf("{x}+"+layer)
     }
 
     Decimal.prototype.digits = function (digits) {
@@ -2747,6 +2765,41 @@ for (var i = 0; i < 10; ++i)
       return Array(digits-x.length+1).join("0")+x
     }
 
+    Decimal.prototype.simplex = function (iterations) {     // iteration 2 = triangular numbers (1,3,6,10), iteration 3 = tetrahedral numbers (1,4,10,20), iteration 4 = pentatope numbers (1,5,15,35), etc.
+      let output = new Decimal(1)
+      for (let i=0;i<iterations;i++) output = output.mul(this.sub(1).div(i+1).add(1))
+      return output
+    }
+
+    Decimal.prototype.isNaN = function () {
+      return (isNaN(this.sign)||isNaN(this.layer)||isNaN(this.mag))
+    }
+
+    Decimal.prototype.fix = function(x) {                   // If the input is not a number, returns x. The recommendation is to input the identity of that variable, so 0 if it gets added to something else or 1 if it gets multiplied or is an exponent or tetration height.
+      return (this.isNaN())?N(x):this
+    }
+
+    Decimal.prototype.tetr_coefficient = function(x) {      // Linear to quadratic tetration height
+      x=N(x)
+      let coefficient = x.ln().mul(2).div(x.ln().add(1))
+      return this.floor().add(coefficient.sub(coefficient.pow(2).sub(coefficient.mul(this.mod(1)).mul(4)).add(this.mod(1).mul(4)).sqrt()).div(coefficient.sub(1).mul(2)))
+    }
+
+    Decimal.prototype.slog_coefficient = function(x) {      // Linear to quadratic superlogarithm
+      x=N(x)
+      let coefficient = x.ln().mul(2).div(x.ln().add(1))
+      return this.floor().add(this.mod(1).mul(coefficient)).add(this.mod(1).pow(2).mul(1-coefficient))
+    }
+
+    Decimal.prototype.quad_tetr = function(x) {
+      x=N(x)
+      return this.tetrate(x.tetr_coefficient(this))
+    }
+
+    Decimal.prototype.quad_slog = function(x) {
+      x=N(x)
+      return this.slog(x).slog_coefficient(x)
+    }
     return Decimal;
   }();
 
