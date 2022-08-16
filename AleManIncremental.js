@@ -195,7 +195,7 @@ function gformat() {   // value, precision (significant figures for small number
       let es = x.layer-((x.mag<1e6)?1:0)
       return Array(es+1).join("e")+format.engineering(x.layerf("{x}-"+String(es)))
     }
-    let height = x.slog(10).floor().toNumber()
+    let height = x.quad_slog(10).floor().toNumber()
     if (height<1e6) return "E"+x.layerf("{x}%1").mul(1e3).floor().div(1e3).toString().substr(0,5)+"#"+height.toLocaleString("en-US")
     return "E"+((height<1e12)?(gformat(x.layerf("{x}%1"),3,"")):"")+"#"+format.engineering(height)
   } else if (arguments[2]=="Hyper-E") {
@@ -203,7 +203,7 @@ function gformat() {   // value, precision (significant figures for small number
     if (height<1e6) return "E"+x.layerf("{x}%1").mul(1e3).floor().div(1e3).toString().substr(0,5)+"#"+height.toLocaleString("en-US")
     return "E"+((height<1e12)?(gformat(x.layerf("{x}%1"),3,"")):"")+"#"+format.scientific(height)
   } else if (arguments[2]=="Infinity") {
-    return x.slog(10).log(2).div(1024).toNumber().toFixed(8)+"∞"
+    return x.quad_slog(10).log(2).div(1024).toNumber().toFixed(8)+"∞"
   } else if (arguments[2]=="Logarithm") {
     if (x.gt("10^^6")) {
       let height = x.slog(10).floor().toNumber()
