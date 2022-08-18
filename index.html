@@ -155,12 +155,12 @@
     </div>
     <div style="height:300px;width:300px">
       <h1>Converter</h1>
-      <label for="number">Number:</label>
-      <input id="number" value="10"/><hr>
-      <label for="precision">Precision:</label>
-      <input id="precision" value="2"/><hr>
-      <label for="notation">Notation:</label>
-      <select id="notation" value="Mixed scientific">
+      <label for="converter_input">Number:</label>
+      <input id="converter_input" value="10"/><hr>
+      <label for="converter_precision">Precision:</label>
+      <input id="converter_precision" value="2"/><hr>
+      <label for="converter_notation">Notation:</label>
+      <select id="converter_notation" value="Mixed scientific">
         <option value="Alemaninc Ordinal">Alemaninc Ordinal</option>
         <option value="Default BE">Default BE</option>
         <option value="Engineering">Engineering</option>
@@ -171,14 +171,29 @@
         <option value="Scientific">Scientific</option>
         <option value="Tetration">Tetration</option>
       </select><hr>
-      <span id="output"></span><br>
-      <button onClick="navigator.clipboard.writeText(document.getElementById('output').innerHTML)">Copy</button>
-    </div><div style="height:300px;width:300px">
+      <span id="converter_output"></span><br>
+      <button onClick="navigator.clipboard.writeText(document.getElementById('converter_output').innerHTML)">Copy</button>
+    </div><br>
+    <div style="height:300px;width:300px">
       <h1>Calculator</h1>
-      <label for="number">Input</label>
-      <input id="calculator_input" value="N(7).pow(4)"/><hr>
+      <label for="calculator_input">Number:</label>
+      <input id="calculator_input" value="10"/><hr>
+      <label for="calculator_precision">Precision:</label>
+      <input id="calculator_precision" value="2"/><hr>
+      <label for="calculator_notation">Notation:</label>
+      <select id="calculator_notation" value="Mixed scientific">
+        <option value="Alemaninc Ordinal">Alemaninc Ordinal</option>
+        <option value="Default BE">Default BE</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Hyper-E">Hyper-E</option>
+        <option value="Infinity">Infinity</option>
+        <option value="Logarithm">Logarithm</option>
+        <option value="Mixed scientific">Mixed scientific</option>
+        <option value="Scientific">Scientific</option>
+        <option value="Tetration">Tetration</option>
+      </select><hr>
       <span id="calculator_output"></span><br>
-      <button onClick="navigator.clipboard.writeText(document.getElementById('output').innerHTML)">Copy</button>
+      <button onClick="navigator.clipboard.writeText(document.getElementById('calculator_output').innerHTML)">Copy</button>
     </div>
   </body>
 </html>
