@@ -27,4 +27,5 @@ function parse(x) {
 }
 window.setInterval(function(){
   document.getElementById("output").innerHTML = gformat(parse(document.getElementById("number").value),document.getElementById("precision").value,document.getElementById("notation").value)
+  document.getElementById("calculator_output").innerHTML = gformat(eval(document.getElementById("calculator_input").value)),document.getElementById("precision").value,document.getElementById("notation").value)
 },50)
