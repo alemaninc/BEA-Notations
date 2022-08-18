@@ -26,6 +26,6 @@ function parse(x) {
   return x
 }
 window.setInterval(function(){
-  document.getElementById("output").innerHTML = gformat(parse(document.getElementById("number").value),document.getElementById("precision").value,document.getElementById("notation").value)
-  document.getElementById("calculator_output").innerHTML = gformat(eval(document.getElementById("calculator_input").value)),document.getElementById("precision").value,document.getElementById("notation").value)
+  document.getElementById("converter_output").innerHTML = gformat(parse(document.getElementById("converter_input").value),document.getElementById("converter_precision").value,document.getElementById("converter_notation").value)
+  document.getElementById("calculator_output").innerHTML = gformat(eval(document.getElementById("calculator_input").value)),document.getElementById("calculator_precision").value,document.getElementById("calculator_notation").value)
 },50)
